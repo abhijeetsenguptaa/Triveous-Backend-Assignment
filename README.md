@@ -213,3 +213,94 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
       "message": "Internal Server Error"
     }
     ```
+
+
+#### Products API Endpoints
+
+##### Get All Products
+
+- **Method**: GET
+- **Endpoint**: `/products`
+- **Description**: Get a list of all products in the database.
+- **Query Parameters**:
+
+  | Parameter     | Type     | Description                             |
+  | ------------- | -------- | --------------------------------------- |
+  | `id` (optional)         | Number   | Filter products by ID.                  |
+  | `title` (optional)      | String   | Filter products by title.               |
+  | `availability` (optional)| Boolean  | Filter products by availability.        |
+  | `category` (optional)   | String   | Filter products by category.            |
+
+- **Responses**:
+
+  - 200 (OK):
+
+    ```json
+    {
+      "status": true,
+      "data": [product1, product2, ...]
+    }
+    ```
+
+  - 404 (Not Found):
+
+    ```json
+    {
+      "status": false,
+      "message": "No products found."
+    }
+    ```
+
+  - 500 (Internal Server Error):
+
+    ```json
+    {
+      "status": false,
+      "message": "Internal server error."
+    }
+    ```
+
+
+##### Create a New Product
+
+- **Method**: POST
+- **Endpoint**: `/products`
+- **Description**: Create a new product.
+- **Request Body**:
+
+  | Field         | Type     | Description               |
+  | ------------- | -------- | ------------------------- |
+  | `title`       | String   | The title of the product. |
+  | `price`       | Number   | The price of the product. |
+  | `description` | String   | The product description.  |
+  | `availability`| Boolean  | The availability status.   |
+  | `category`    | String   | The product category.     |
+
+- **Responses**:
+
+  - 201 (Created):
+
+    ```json
+    {
+      "status": true,
+      "data": createdProduct
+    }
+    ```
+
+  - 400 (Bad Request):
+
+    ```json
+    {
+      "status": false,
+      "message": "Invalid request body."
+    }
+    ```
+
+  - 500 (Internal Server Error):
+
+    ```json
+    {
+      "status": false,
+      "message": "Internal server error."
+    }
+    ```

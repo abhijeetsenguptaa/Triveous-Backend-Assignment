@@ -5,6 +5,7 @@ const cors = require('cors');
 const { connection } = require('./configs/connection');
 const { userRoute } = require('./routes/user.route');
 const { categoryRoute } = require('./routes/category.route');
+const { productRoute } = require('./routes/product.route');
 
 
 const app = express();
@@ -32,6 +33,7 @@ app.get('/', async (req, res) => {
 
 app.use('/users', userRoute);
 app.use('/categories', categoryRoute);
+app.use('/products', productRoute);
 
 
 connection.sync().then(() => {
