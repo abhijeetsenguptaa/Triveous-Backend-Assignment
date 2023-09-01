@@ -20,7 +20,7 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
 #### Register a New User
 
 - **Method:** POST
-- **URL:** `/api/users/register`
+- **URL:** `/users/register`
 - **Description:** Register a new user with the provided details.
 
 **Request Body:**
@@ -71,7 +71,7 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
 #### User Login
 
 - **Method:** POST
-- **URL:** `/api/users/login`
+- **URL:** `/users/login`
 - **Description:** Authenticate user login.
 
 **Request Body:**
@@ -120,7 +120,7 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
 #### Log Out
 
 - **Method:** POST
-- **URL:** `/api/users/logout`
+- **URL:** `/users/logout`
 - **Description:** Log out a user by clearing the JWT token.
 
 **Responses:**
@@ -138,3 +138,78 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
   }
   ```
 
+
+### Category Listing
+
+- **Method:** GET
+- **URL:** `/categories`
+- **Description:** Retrieve a list of categories.
+
+**Responses:**
+
+- `200 OK`:
+  ```json
+  [
+    {
+      "id": "category_id_1",
+      "name": "Electronics",
+      "description": "Electronic gadgets and devices"
+    },
+    {
+      "id": "category_id_2",
+      "name": "Clothing",
+      "description": "Fashion and apparel"
+    },
+    // More category objects
+  ]
+  ```
+- `500 Internal Server Error`:
+  ```json
+  {
+    "message": "Failed to fetch categories."
+  }
+  ```
+
+### Create Category
+
+#### Request
+
+- **Endpoint**: `POST /categories`
+- **Description**: Create a new product category.
+- **Request Body**:
+
+  | Field        | Type   | Description                        |
+  | ------------ | ------ | ---------------------------------- |
+  | `name`       | String | (Required) The name of the category. |
+  | `description` | String | (Optional) A description of the category. |
+
+#### Responses
+
+- **201 Created**
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "data": {
+        "id": 4,
+        "name": "Books",
+        "description": "Products related to books and literature."
+      }
+    }
+    ```
+- **400 Bad Request**
+  - **Response Body**:
+    ```json
+    {
+      "status": false,
+      "message": "Please provide a name for the category."
+    }
+    ```
+- **500 Internal Server Error**
+  - **Response Body**:
+    ```json
+    {
+      "status": false,
+      "message": "Internal Server Error"
+    }
+    ```

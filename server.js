@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { connection } = require('./configs/connection');
 const { userRoute } = require('./routes/user.route');
+const { categoryRoute } = require('./routes/category.route');
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.get('/', async (req, res) => {
 
 
 app.use('/users', userRoute);
+app.use('/categories', categoryRoute);
 
 
 connection.sync().then(() => {
