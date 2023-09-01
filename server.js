@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const connection = require('./configs/connection');
+const { connection } = require('./configs/connection');
+const { userRoute } = require('./routes/user.route');
 
 
 const app = express();
@@ -12,24 +13,27 @@ app.use(cookieParser());
 
 
 
-app.get('/',async(req,res)=>{
+app.get('/', async (req, res) => {
     try {
         res.status(200).json({
             status: true,
-            msg : 'Welcome to the Triveous'
+            msg: 'Welcome to the Triveous'
         })
     } catch (error) {
         console.log(error.message);
         res.status(500).json({
             status: false,
-            msg : error.message
+            msg: error.message
         })
     }
 })
 
 
-connection.sync().then(()=>{
-    app.listen(7000,()=>{
+app.use('/users', userRoute);
+
+
+connection.sync().then(() => {
+    app.listen(7000, () => {
         console.log('Server is running on port 7000')
     })
 })
