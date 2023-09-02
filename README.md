@@ -7,7 +7,7 @@ The E-commerce Backend API is a full-stack application that provides endpoints f
 
 ## Base URL
 
-- Local: [http://localhost:3000](http://localhost:7000)
+- Local: [http://localhost:7000](http://localhost:7000)
 
 ## Authentication
 
