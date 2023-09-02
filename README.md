@@ -304,3 +304,174 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
       "message": "Internal server error."
     }
     ```
+
+## Cart Management
+
+### Add Items to Cart
+
+- **Method:** POST
+- **URL:** `/cart/add`
+- **Description:** Add items to the user's cart.
+
+**Request Body:**
+
+| Field       | Type     | Description                              |
+| ----------- | -------- | ---------------------------------------- |
+| userId      | String   | The ID of the user adding items to the cart. |
+| productId   | String   | The ID of the product to add to the cart. |
+| quantity    | Number   | The quantity of the product to add.      |
+
+**Responses:**
+
+- 201 (Created):
+  ```json
+  {
+    "message": "Product added to the cart successfully."
+  }
+  ```
+- 400 (Bad Request):
+  ```json
+  {
+    "error": "Invalid request. Please check your input data."
+  }
+  ```
+- 404 (Not Found):
+  ```json
+  {
+    "error": "Product not found."
+  }
+  ```
+- 500 (Internal Server Error):
+  ```json
+  {
+    "error": "Failed to add product to the cart."
+  }
+  ```
+
+---
+
+### Fetch Cart Details
+
+- **Method:** GET
+- **URL:** `/cart/:userId`
+- **Description:** Retrieve cart details for a user.
+
+**URL Parameters:**
+
+| Parameter | Type     | Description                              |
+| --------- | -------- | ---------------------------------------- |
+| userId    | String   | The ID of the user whose cart details are requested. |
+
+**Responses:**
+
+- 200 (OK):
+  ```json
+  {
+    "userId": "user_id",
+    "cartItems": [
+      {
+        "productId": "product_id",
+        "productName": "Product Name",
+        "quantity": 2,
+        "price": 19.99
+      },
+      // More cart items
+    ]
+  }
+  ```
+- 404 (Not Found):
+  ```json
+  {
+    "error": "Cart not found for the user."
+  }
+  ```
+- 500 (Internal Server Error):
+  ```json
+  {
+    "error": "Failed to fetch cart details."
+  }
+  ```
+
+---
+
+### Delete Item from Cart
+
+- **Method:** DELETE
+- **URL:** `/cart/delete/:userId/:itemId`
+- **Description:** Remove an item from the user's cart by item ID.
+
+**URL Parameters:**
+
+| Parameter | Type     | Description                              |
+| --------- | -------- | ---------------------------------------- |
+| userId    | String   | The ID of the user whose cart contains the item. |
+| itemId    | String   | The ID of the item to be removed from the cart. |
+
+**Responses:**
+
+- 200 (OK):
+  ```json
+  {
+    "message": "Item removed from the cart successfully."
+  }
+  ```
+- 404 (Not Found):
+  ```json
+  {
+    "error": "Item not found in the cart."
+  }
+  ```
+- 500 (Internal Server Error):
+  ```json
+  {
+    "error": "Failed to remove item from the cart."
+  }
+  ```
+
+---
+
+### Update Item in Cart
+
+- **Method:** PUT
+- **URL:** `/cart/update/:userId/:itemId`
+- **Description:** Update the quantity of an item in the user's cart by item ID.
+
+**URL Parameters:**
+
+| Parameter | Type     | Description                              |
+| --------- | -------- | ---------------------------------------- |
+| userId    | String   | The ID of the user whose cart contains the item. |
+| itemId    | String   | The ID of the item to be updated in the cart. |
+
+**Request Body:**
+
+| Field       | Type     | Description                              |
+| ----------- | -------- | ---------------------------------------- |
+| quantity    | Number   | The updated quantity of the item in the cart. |
+
+**Responses:**
+
+- 200 (OK):
+  ```json
+  {
+    "message": "Item quantity updated in the cart successfully."
+  }
+  ```
+- 400 (Bad Request):
+  ```json
+  {
+    "error": "Invalid request. Please provide a valid quantity."
+  }
+  ```
+- 404 (Not Found):
+  ```json
+  {
+    "error": "Item not found in the cart."
+  }
+  ```
+- 500 (Internal Server Error):
+  ```json
+  {
+    "error": "Failed to update item quantity in the cart."
+  }
+  ```
