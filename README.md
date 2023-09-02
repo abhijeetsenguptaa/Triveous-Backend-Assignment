@@ -475,3 +475,140 @@ The API uses JSON Web Tokens (JWT) for authentication. To access protected route
     "error": "Failed to update item quantity in the cart."
   }
   ```
+
+
+Certainly! Here's an example of documentation for the order-related API endpoints:
+
+#### Order Management API
+
+This API allows users to place orders, retrieve order details, and manage their orders.
+
+---
+
+### Place an Order
+
+- **Endpoint:** `/orders`
+- **Method:** POST
+- **Description:** Place a new order with products from the user's cart.
+
+**Request Body:**
+
+| Field        | Type     | Description                                |
+| ------------ | -------- | ------------------------------------------ |
+| products     | Array    | An array of product objects to be ordered. |
+
+**Example Request Body:**
+
+```json
+{
+    "products": [
+        {
+            "productId": "product_id_1",
+            "quantity": 2
+        },
+        {
+            "productId": "product_id_2",
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Responses:**
+
+- **201 (Created):** Order successfully placed.
+  - **Response Body:**
+    ```json
+    {
+        "orderId": "order_id",
+        "totalAmount": 120.00
+    }
+    ```
+
+- **400 (Bad Request):** Invalid request or missing fields.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Invalid request. Please check your request data."
+    }
+    ```
+
+- **401 (Unauthorized):** User not authenticated.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Unauthorized. Please provide a valid token."
+    }
+    ```
+
+- **500 (Internal Server Error):** Server error.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Internal server error. Please try again later."
+    }
+    ```
+
+---
+
+### Get Order Details
+
+- **Endpoint:** `/orders/:orderId`
+- **Method:** GET
+- **Description:** Retrieve details of a specific order by order ID.
+
+**Parameters:**
+
+| Parameter | Type   | Description                   |
+| --------- | ------ | ----------------------------- |
+| orderId   | String | The unique ID of the order.    |
+
+**Responses:**
+
+- **200 (OK):** Order details retrieved successfully.
+  - **Response Body:**
+    ```json
+    {
+        "orderId": "order_id",
+        "totalAmount": 120.00,
+        "products": [
+            {
+                "productId": "product_id_1",
+                "quantity": 2,
+                "price": 60.00
+            },
+            {
+                "productId": "product_id_2",
+                "quantity": 1,
+                "price": 60.00
+            }
+        ],
+        "createdAt": "2023-09-01T12:00:00Z"
+    }
+    ```
+
+- **401 (Unauthorized):** User not authenticated.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Unauthorized. Please provide a valid token."
+    }
+    ```
+
+- **404 (Not Found):** Order not found.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Order not found."
+    }
+    ```
+
+- **500 (Internal Server Error):** Server error.
+  - **Response Body:**
+    ```json
+    {
+        "error": "Internal server error. Please try again later."
+    }
+    ```
+
+---
